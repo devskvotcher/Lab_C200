@@ -8,7 +8,10 @@ using namespace std;
 // Определение конструктора.
 MyString::MyString()   //по умолчанию 
 {
-	m_pStr =nullptr;
+	const char* ptr = "nullptr";
+	m_pStr = new char[strlen(ptr)+1];
+	strcpy(m_pStr, ptr);
+	//m_pStr = nullptr;
 }
 
 MyString::MyString(const char* pName)
@@ -26,14 +29,19 @@ MyString::MyString(const MyString& other)			// конструктор копирования
 		strcpy(m_pStr, other.m_pStr);
 	}
 	else
-		m_pStr = nullptr;
+	{
+		m_pStr = 0;
+	}
+	
 }
-
 
 const char* MyString::GetString() const // определение константного метода
 {
-	return m_pStr;
-		
+	if (this == nullptr)
+	{
+		m_pStr = new char[5];
+	}
+		return m_pStr;	
 }
 
 const char* MyString::SetNewString(const char* pNewString)

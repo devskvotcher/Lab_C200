@@ -4,38 +4,75 @@
 
 
 #include <tchar.h>
+#include <iostream>
+#include "myString.h"
 #define	  stop __asm nop
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	setlocale(LC_ALL, "Rus");
+	std::cout << "Задание 1.Массив объектов класса.\n";
 	//Задание 1.Массив объектов класса.
 	{
-	//Объявите и проинициализируйте массив ar из объектов
-	// типа MyString. 
-		//const int N=3;
-		//MyString str1[N] = {...};
-  
-	//Проверка - печать строк-членов класса
-
-
-	//Замените размер const int N=5; , не изменяя список инициализаторов.
-
-
-			
+		//Объявите и проинициализируйте массив ar из объектов
+		// типа MyString. 
+		//MyString str1[N]= {...};
+		{
+		const int N = 3;
+		MyString str1[N] = { "C++", "C", "hard" };
+		//Проверка - печать строк-членов класса
+		for (size_t i = 0; i < sizeof(str1)/sizeof(str1[0]); i++)
+		{
+			std::cout << str1[i].GetString() << std::endl;
+		}
+		}
+		//Замените размер const int N=5; , не изменяя список инициализаторов.
+		{
+			const int N = 5;
+			MyString str1[N] = { "C++", "C", "hard" };
+			for (size_t i = 0; i < N; i++)
+			{
+				if ((sizeof(str1) / sizeof(str1[0])) < i)
+				{
+					MyString* str2;
+					str2 = new MyString();
+					str1[i] = *str2;
+				}
+				std::cout << str1[i].GetString() << std::endl;
+			}
+		}			
 	}
 	stop
 
 
-	//Задание 2.Массив указателей на объекты класса.
+		//Задание 2.Массив указателей на объекты класса.
 	{
-	//Объявите и проинициализируйте массив arPtr из N
-	//указателей на объекты типа MyString (сами объекты 
-	//создаются динамически!).
-	//const int N=3;
-	
+		std::cout << "Задание 2.Массив указателей на объекты класса.\n";
+		//Объявите и проинициализируйте массив arPtr из N
+		//указателей на объекты типа MyString (сами объекты 
+		//создаются динамически!).
+		const int N=3;
+		MyString *arPtr[N]={new MyString("C++"), new MyString("C"), new MyString("hard")};
+			for (size_t i = 0; i < N; i++)
+			{
+				std::cout<<arPtr[i]->GetString()<< std::endl;
+			}
 	//Печать строк-членов класса
 
    	//Замените размер const int N=5; , не изменяя список инициализаторов.
+			{
+				const int N = 5;
+				MyString* arPtr[N] = { new MyString("C++"), new MyString("C"), new MyString("hard") };
+				for (size_t i = sizeof(arPtr)/sizeof(arPtr[0]); i < N; i++)
+				{
+					arPtr[i] = new MyString;
+				}
+				
+				for (size_t i = 0; i < N; i++)
+				{
+					std::cout << arPtr[i]->GetString() << std::endl;
+				}
+			}
 
 	}
 	stop
