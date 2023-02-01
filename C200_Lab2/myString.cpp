@@ -2,17 +2,17 @@
 
 #include <string>
 #include "myString.h"
+
 using namespace std;
 
 
 // Определение конструктора.
-MyString::MyString()   //по умолчанию 
-{
-	const char* ptr = "nullptr";
-	m_pStr = new char[strlen(ptr)+1];
-	strcpy(m_pStr, ptr);
-	//m_pStr = nullptr;
-}
+//MyString::MyString()   //по умолчанию 
+//{
+//		const char* ptr = "nullptr";
+//		m_pStr = new char[strlen(ptr) + 1];
+//		strcpy(m_pStr, ptr);
+//}
 
 MyString::MyString(const char* pName)
 {	
@@ -20,7 +20,6 @@ MyString::MyString(const char* pName)
 		strcpy(m_pStr, pName);
 	
 }
-
 MyString::MyString(const MyString& other)			// конструктор копирования
 {
 	if (other.m_pStr)
@@ -36,13 +35,11 @@ MyString::MyString(const MyString& other)			// конструктор копирования
 }
 
 const char* MyString::GetString() const // определение константного метода
-{
-	if (this == nullptr)
-	{
-		m_pStr = new char[5];
-	}
-		return m_pStr;	
+{	
+		return m_pStr;		
 }
+		
+
 
 const char* MyString::SetNewString(const char* pNewString)
 {

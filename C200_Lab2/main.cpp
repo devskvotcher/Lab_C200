@@ -31,13 +31,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			const int N = 5;
 			MyString str1[N] = { "C++", "C", "hard" };
 			for (size_t i = 0; i < N; i++)
-			{
-				if ((sizeof(str1) / sizeof(str1[0])) < i)
-				{
-					MyString* str2;
-					str2 = new MyString();
-					str1[i] = *str2;
-				}
+			{			
 				std::cout << str1[i].GetString() << std::endl;
 			}
 		}			
@@ -63,14 +57,18 @@ int _tmain(int argc, _TCHAR* argv[])
 			{
 				const int N = 5;
 				MyString* arPtr[N] = { new MyString("C++"), new MyString("C"), new MyString("hard") };
-				for (size_t i = sizeof(arPtr)/sizeof(arPtr[0]); i < N; i++)
+				for (size_t i = 3; i < N; i++)
 				{
-					arPtr[i] = new MyString;
+					arPtr[i] = new MyString();
 				}
 				
 				for (size_t i = 0; i < N; i++)
 				{
 					std::cout << arPtr[i]->GetString() << std::endl;
+				}
+				for (size_t i = 0; i < N; i++)
+				{
+					delete arPtr[i];
 				}
 			}
 
@@ -134,10 +132,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		stop
 
 
-		//Заполните ... согласно комментариям
-		Shape& rShape = ...; //псевдоним s
-		Shape& rRect = ...; //псевдоним r
-		Shape& rCircle = ...; //псевдоним c
+		
     	...WhereAmI();	//вызов посредством rShape	???
 		...WhereAmI();	//вызов посредством	rRect	???
 		...WhereAmI(); //вызов посредством rCircle	???

@@ -5,11 +5,11 @@ class MyString
     
 
 public:
-    MyString();
-    MyString(const char* pName);
+  //  MyString();
+    MyString(const char* pName = "adfasd");
     MyString(const MyString& other); // конструктор копировани€
     
-    MyString CreateString();
+ 
 
     const char* GetString() const; // объ€вление константного метода 
     const char* SetNewString(const char* pNewString);
