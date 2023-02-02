@@ -6,6 +6,7 @@
 #include <tchar.h>
 #include <iostream>
 #include "myString.h"
+#include "Shape.h"
 #define	  stop __asm nop
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -57,14 +58,18 @@ int _tmain(int argc, _TCHAR* argv[])
 			{
 				const int N = 5;
 				MyString* arPtr[N] = { new MyString("C++"), new MyString("C"), new MyString("hard") };
-				for (size_t i = 3; i < N; i++)
-				{
+				//for (size_t i = 3; i < N; i++)
+				/*{
 					arPtr[i] = new MyString();
-				}
+				}*/
 				
 				for (size_t i = 0; i < N; i++)
 				{
-					std::cout << arPtr[i]->GetString() << std::endl;
+					if (arPtr[i] != nullptr)
+					{
+						std::cout << arPtr[i]->GetString() << std::endl;
+					}
+					
 				}
 				for (size_t i = 0; i < N; i++)
 				{
@@ -73,8 +78,8 @@ int _tmain(int argc, _TCHAR* argv[])
 			}
 
 	}
-	stop
-
+		stop
+		//А::A(){int x, int y}
 
 	//Задание 3.Простое наследование.Аргументы конструктора,
 	// передаваемые в базовый класс.
@@ -87,68 +92,107 @@ int _tmain(int argc, _TCHAR* argv[])
 	//цветной => в базовом классе можно ввести переменную, которая
 	//будет определять цвет фигуры.
 	//Подсказка: для хранения цвета объявите перечисление (RED,GREEN,BLUE...);
-	
 
-	
+
+
 	//В конструкторах производных классов предусмотрите передачу
 	//параметра-цвета конструктору базового класса.
 	//При создании и уничтожении объекта производного типа определите
 	//последовательность вызовов конструкторов и деструкторов базового
 	//и производного классов
-	
+		std::cout << "Create a Shape-object" << std::endl;
+		Shape shape(Shape::COLOR::RED);
+		std::cout << "Create a Rect-object" << std::endl;
+		Rect rect(2,4,2,4, Shape::COLOR::BLUE);
+		std::cout << "Create a Circle-object" << std::endl;
+		Circle circle(2, 4, 2, Shape::COLOR::WHITE);
+//--------------------//NB.Описать последовательность вызовов конструкторов и деструкторов	
 
 
 
-	stop
-//////////////////////////////////////////////////////////////////////
-/*
-	//Задание 4.Виртуальные функции.
-	//4а) Модифицируйте классы Shape,Rect и Circle:
-	//добавьте в каждый класс public метод void WhereAmI().
-	//Реализация каждой функции должна выводить сообщение 
-	//следующего вида "Now I am in class Shape(Rect или Circle)".
-	//Выполните приведенный фрагмент, объясните результат.
+		stop
+			//////////////////////////////////////////////////////////////////////
 
+				//Задание 4.Виртуальные функции.
+				//4а) Модифицируйте классы Shape,Rect и Circle:
+				//добавьте в каждый класс public метод void WhereAmI().
+				//Реализация каждой функции должна выводить сообщение 
+				//следующего вида "Now I am in class Shape(Rect или Circle)".
+				//Выполните приведенный фрагмент, объясните результат.
 
+			std::cout << "Задание 4а" << std::endl;
 	{
-		Shape s(...);
-		Rect r(...);
-		Circle c(...);
+		Shape s(Shape::COLOR::RED);
+		Rect r(2, 4, 2, 4, Shape::COLOR::BLUE);
+		Circle c(2, 4, 2, Shape::COLOR::WHITE);
 
-	
+		std::cout << "Вызов посредством прямого обращения к объекту" << std::endl;
 		//Метод какого класса вызывается в следующих строчках???
-		s.WhereAmI();	//	???
-		r.WhereAmI();	//	???
-		c.WhereAmI();	//	???
+		s.WhereAmI();	//	Класса Shape
+		r.WhereAmI();	//	Класса Shape, но переопределнного в классе Circle
+		c.WhereAmI();	//	Класса Shape, но переопределнного в классе Rect
 		stop
 
-
+			std::cout << "Вызов посредством указателя" << std::endl;
 		Shape* pShape = &s;
 		Shape* pRect = &r;
 		Shape* pCircle = &c;
-    	pShape->WhereAmI();	//	???
-		pRect->WhereAmI();	//	???
-		pCircle->WhereAmI(); //	???
+    	pShape->WhereAmI();	//	Класса Shape
+		pRect->WhereAmI();	//	Класса Rect, ибо в указатель базового класса положена ссылка на наследуемый класс.
+		pCircle->WhereAmI(); //	Класса Circle, ибо в указатель базового класса положена ссылка на наследуемый класс.
 		stop
 
-
-		
-    	...WhereAmI();	//вызов посредством rShape	???
-		...WhereAmI();	//вызов посредством	rRect	???
-		...WhereAmI(); //вызов посредством rCircle	???
+			std::cout << "Вызов посредством ссылки" << std::endl;
+		Shape &rShape = s;
+		Shape& rRect = r;
+		Shape& rCircle = c;
+        rShape.WhereAmI();	//вызов посредством rShape	Класс Shape
+		rRect.WhereAmI();	//вызов посредством	rRect	Класс Rect
+		rCircle.WhereAmI(); //вызов посредством rCircle	Класс Circle
 		stop
 	}
-
+	std::cout << "Задание 4б" << std::endl;
 	//4б) Добавьте в базовый и производные классы виртуальный
 	// метод WhereAmIVirtual(). По аналогии с 4а вызовите
 	// виртуальный метод посредством объектов, указателей и
 	// ссылок, определенных в предыдущем фрагменте.
 	//Выполните новый фрагмент, объясните разницу.
+	{
+		Shape s(Shape::COLOR::RED);
+		Rect r(2, 4, 2, 4, Shape::COLOR::BLUE);
+		Circle c(2, 4, 2, Shape::COLOR::WHITE);
 
-*/
+		std::cout << "Вызов посредством прямого обращения к объекту" << std::endl;
+		//Метод какого класса вызывается в следующих строчках???
+		s.WhereAmIVirtual();	//	Класса Shape
+		r.WhereAmIVirtual();	//	Класса Shape, но переопределнного в классе Circle
+		c.WhereAmIVirtual();	//	Класса Shape, но переопределнного в классе Rect
+		stop
+
+			std::cout << "Вызов посредством указателя" << std::endl;
+		Shape* pShape = &s;
+		Shape* pRect = &r;
+		Shape* pCircle = &c;
+		pShape->WhereAmIVirtual();	//	Класса Shape
+		pRect->WhereAmIVirtual();	//	Класса Rect, ибо в указатель базового класса положена ссылка на наследуемый класс.
+		pCircle->WhereAmIVirtual(); //	Класса Circle, ибо в указатель базового класса положена ссылка на наследуемый класс.
+		stop
+
+			std::cout << "Вызов посредством ссылки" << std::endl;
+		Shape& rShape = s;
+		Shape& rRect = r;
+		Shape& rCircle = c;
+		rShape.WhereAmIVirtual();	//вызов посредством rShape	Класс Shape
+		rRect.WhereAmIVirtual();	//вызов посредством	rRect	Класс Rect
+		rCircle.WhereAmIVirtual(); //вызов посредством rCircle	Класс Circle
+		stop
+	}
+
 
 //////////////////////////////////////////////////////////////////////
-/*
+//*
+	std::cout << "Задание №5.Виртуальные деструкторы." << std::endl;
+	{
 	//Задание 5.Виртуальные деструкторы.
 	//Модифицируйте классы:
 	//a) введите соответствующие
@@ -158,10 +202,55 @@ int _tmain(int argc, _TCHAR* argv[])
 	// "Now I am in Shape's destructor!" или
 	// "Now I am in Rect's destructor!"
 	//Выполните фрагмент. Объясните результат.
+		Shape s(Shape::COLOR::RED);
+		Rect r(2, 4, 2, 4, Shape::COLOR::BLUE);
+		Circle c(2, 4, 2, Shape::COLOR::WHITE);
+		/*
+		* Конструктор базового класса Shape
+		* 
+				Конструктор базового класса Shape
+					Конструктор наследуемого класса Rect
 
+						Конструктор базового класса Shape
+							Конструктор наследуемого класса Circle
+
+							Деструктор наследуемого класса Circle
+						Деструктор базового класса Shape
+
+					Деструктор наследуемого класса Rect
+				Деструктор базового класса Shape
+
+			Деструктор базового класса Shape
+			Деструктор наследуемого класса Circle
+			Деструктор базового класса Shape
+			Деструктор наследуемого класса Rect
+			Деструктор базового класса Shape
+			Деструктор базового класса Shape
+		*/
 	// b) Добавьте в объявление деструкторов ключевое слово virtual 
 	//Выполните фрагмент.Объясните разницу.
+		/*
+		* Конструктор базового класса Shape
+				Конструктор базового класса Shape
+						Конструктор наследуемого класса Rect
 
+							Конструктор базового класса Shape
+								Конструктор наследуемого класса Circle
+								Деструктор наследуемого класса Circle
+							Деструктор базового класса Shape
+						Деструктор наследуемого класса Rect
+				Деструктор базового класса Shape
+
+Деструктор базового класса Shape
+Деструктор наследуемого класса Circle
+Деструктор базового класса Shape
+Деструктор наследуемого класса Rect
+Деструктор базового класса Shape
+Деструктор базового класса Shape
+		*/
+	//------//NB-------Разницы почему-то не получилось, однако она должна быть и обусловлена тем, что без виртуального
+		//деструктора возикает утечка памяти, потому что деструктор базового класса не знает о существования деструктора
+		//наследуемого класса
 	
 	//Подумайте: какие конструкторы вызываются в следующей строке?
 		//Если в разработанных классов каких-то конструкторов
@@ -169,13 +258,16 @@ int _tmain(int argc, _TCHAR* argv[])
 		//Если Вы считаете, что в приведенном фрагменте чего-то
 		//не хватает - добавьте
 
-		Rect r(<параметры>);
-		Shape* ar[]={new Shape(r), new Rect(r), new Circle(r), new Circle() };
+	
+		Rect r(2, 4, 2, 4, Shape::COLOR::BLUE);
+		//Shape* ar[] = { new Shape(r), new Rect(r), new Circle(r), new Circle() };
 		//Вызовите для каждого элемента массива метод WhereAmIVirtual()
+	}
+		
 	
 
 	stop
-*/
+//*/
 
 /*
 	//Задание 6*. В чем заключается отличие 1) и 2)

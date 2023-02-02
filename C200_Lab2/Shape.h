@@ -1,27 +1,49 @@
-enum COLOR
-{ RED, GREEN, BLUE, BLACK, WHITE
-};
+#pragma once
+
 //Возьмем фигуру, которую описывает базовый класс четерехугольник.
 class Shape
 {
-protected:
-    unsigned int m_left, m_right, m_top, m_bottom; //строка-член класса, определяющая стороны фигуры
-    COLOR *color;	//строка-член класса, определяющая цвет фигуры
 public:
-    Shape(COLOR* x, unsigned int right, unsigned int left, unsigned int bottom, unsigned int top);
-    ~Shape();
+    enum COLOR
+    {
+        RED, GREEN, BLUE, BLACK, WHITE
+    };
+protected:
+   //unsigned int m_left, m_right, m_top, m_bottom; //строка-член класса, определяющая стороны фигуры
+    COLOR color;	//строка-член класса, определяющая цвет фигуры
+public:
+    Shape(COLOR x);
+    void WhereAmI();
+    virtual void WhereAmIVirtual();
+    virtual ~Shape();
 };
 //Возьмем фигуру, которую описывает производный класс прямоугольник.
 class Rect:public Shape
 {
-    
+protected:
+    unsigned int m_sideA, m_sideB, m_sideC, m_sideD;
 public:
-	Rect(): Shape(* x,  right,  left,  bottom, top);
-	~Rect(): Shape();
+    Rect(unsigned int sideA, unsigned int sideB, unsigned int sideC, unsigned int sideD, COLOR color);    //Конструктор по умолчанию
+    Rect(const Rect& rect);     //Конструктор копирования
+    void WhereAmI();
+    void WhereAmIVirtual() override;
+    
+
+	
+    virtual ~Rect();
 };
 //Возьмем фигуру, которую описывает производный класс круг.
-class Rect :public Shape
+class Circle :public Shape
 {
+protected:
+    unsigned int m_radius, m_x, m_y;
+public:
+    Circle();
+    Circle(unsigned int r, unsigned int x, unsigned int y, COLOR color);   //Конструктор по умолчанию
+    Circle(const Circle& circle);                    //Конструктор копирования
+    void WhereAmI();
+    void WhereAmIVirtual() override;
+    virtual ~Circle();
 
 };
 
