@@ -16,6 +16,11 @@ void Shape::WhereAmIVirtual()
     std::cout << "Now I am in class Shape" << std::endl;
 }
 
+void Shape::Inflate(int x)
+{
+    std::cout << "Вертульный метод Inflate базового класса ничего не делает, прям как я" << std::endl;
+}
+
 Shape::~Shape()
 {
     std::cout << "Деструктор базового класса Shape"<<std::endl;
@@ -42,6 +47,14 @@ void Rect::WhereAmI()
 {
     std::cout << "Now I am in class Rect" << std::endl;
 }
+int Rect::GetsideA()
+{
+    return this->m_sideA;
+}
+int Rect::GetsideD()
+{
+    return this->m_sideD;
+}
 
 void Rect::WhereAmIVirtual()
 {
@@ -51,6 +64,14 @@ void Rect::WhereAmIVirtual()
 Rect::~Rect()
 {
     std::cout << "Деструктор наследуемого класса Rect" << std::endl;
+}
+
+void Rect::Inflate(int x)
+{
+    this->m_sideA = m_sideA + x;
+    this->m_sideB = m_sideB + x;
+    this->m_sideC = m_sideC + x;
+    this->m_sideD = m_sideD + x;
 }
 
 Circle::Circle() :Shape(color)
@@ -74,6 +95,16 @@ Circle::Circle(const Circle& circle):Shape(circle)                    //Конструк
     this->m_y = circle.m_y;
 }
 
+Circle::Circle(const Rect& r):Shape(r)
+{
+    
+    int AB=r.m_sideA;
+    int AC= r.m_sideD;
+    this->m_radius = (sqrt(pow(AB, 2) + pow(AC, 2)))/2;
+    this->m_x = AB - m_radius;
+    this->m_y = AC - m_radius;
+}
+
 void Circle::WhereAmI()
 {
     std::cout << "Now I am in class Сircle" << std::endl;
@@ -87,4 +118,9 @@ void Circle::WhereAmIVirtual()
 Circle::~Circle()
 {
     std::cout << "Деструктор наследуемого класса Circle" << std::endl;
+}
+
+void Circle::Inflate(int x)
+{
+    this->m_radius = m_radius + x;
 }

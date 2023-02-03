@@ -8,11 +8,25 @@
 #include "myString.h"
 #include "Shape.h"
 #define	  stop __asm nop
-
+MyString GetMyString(const char *ar[], int totalMemory)
+{
+	MyString MyStr(totalMemory);
+	for (size_t i = 0; i < 6; i++)
+	{
+		MyStr.ConcatenationString(ar[i]);	
+	}
+	return MyStr;
+}
+int NecessaryMemory(const char* str, int& memory)
+{
+	memory = strlen(str) + 1;
+	return memory;
+}
 int _tmain(int argc, _TCHAR* argv[])
 {
 	setlocale(LC_ALL, "Rus");
 	std::cout << "Задание 1.Массив объектов класса.\n";
+
 	//Задание 1.Массив объектов класса.
 	{
 		//Объявите и проинициализируйте массив ar из объектов
@@ -22,7 +36,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		const int N = 3;
 		MyString str1[N] = { "C++", "C", "hard" };
 		//Проверка - печать строк-членов класса
-		for (size_t i = 0; i < sizeof(str1)/sizeof(str1[0]); i++)
+		for (size_t i = 0; i < N; i++)
 		{
 			std::cout << str1[i].GetString() << std::endl;
 		}
@@ -257,68 +271,73 @@ int _tmain(int argc, _TCHAR* argv[])
 		//не хватает - реализуйте
 		//Если Вы считаете, что в приведенном фрагменте чего-то
 		//не хватает - добавьте
+		{
 
-	
-		Rect r(2, 4, 2, 4, Shape::COLOR::BLUE);
-		//Shape* ar[] = { new Shape(r), new Rect(r), new Circle(r), new Circle() };
-		//Вызовите для каждого элемента массива метод WhereAmIVirtual()
+			Rect r(2, 4, 2, 4, Shape::COLOR::BLUE);
+			Shape* ar[] = { new Shape(r), new Rect(r), new Circle(r), new Circle() };
+			//Вызовите для каждого элемента массива метод WhereAmIVirtual()
+			for (size_t i = 0; i < 4; i++)
+			{
+				ar[i]->WhereAmIVirtual();
+			}
+		}
 	}
 		
 	
 
 	stop
-//*/
+		//*/
 
-/*
-	//Задание 6*. В чем заключается отличие 1) и 2)
-	{
-		Shape* pShapes = new Rect[10];//1)
-		Rect* pRects = new Rect[10];//2)
+		/*
+			//Задание 6*. В чем заключается отличие 1) и 2)
+			{
+				Shape* pShapes = new Rect[10];//1)
+				Rect* pRects = new Rect[10];//2)
 
-		//Попробуйте вызвать метод WhereAmIVirtual() для каждого элемента обоих массивов -
-		//в чем заключается проблема???
+				//Попробуйте вызвать метод WhereAmIVirtual() для каждого элемента обоих массивов -
+				//в чем заключается проблема???
 
 
-		//Освободите динамически захваченную память
+				//Освободите динамически захваченную память
 
-	}
+			}
 
-*/
+		*/
 
-//////////////////////////////////////////////////////////////////////
-/*
+		//////////////////////////////////////////////////////////////////////
+		std::cout << "Задание 7.Виртуальные функции и оператор разрешения области видимости. " << std::endl;
 	//Задание 7.Виртуальные функции и оператор разрешения области видимости. 
 
 	{
-		Rect r(...);
+		Rect r(2,4,2,4,Shape::BLACK);
 		Shape* p = &r;	
-		p->WhereAmIVirtual();//...
+		p->WhereAmIVirtual(); //Rect
 		stop
-	
-		
-		//4a Оператор разрешения области видимости.
-		//Посредством объекта r и указателя p вызовите виртуальную функцию
-		//WhereAmIVirtual()класса Shape
-		
+
+
+			//4a Оператор разрешения области видимости.
+			//Посредством объекта r и указателя p вызовите виртуальную функцию
+			//WhereAmIVirtual()класса Shape
+			p->Shape::WhereAmIVirtual();
 		
 	}
-*/
+
 
 //////////////////////////////////////////////////////////////////////
-/*
+
 	//Задание 8.Чисто виртуальные функции. 
 	//Введите в базовый класс метод void Inflate(int); Подумайте:
 	//можно ли реализовать такой метод для базового класса? => как его нужно объявить.
 	//Реализуйте этот метод для производных классов.
 	{
-		Rect r(...);
+		Rect r(2, 4, 2, 4, Shape::BLACK);
 		Shape* p = &r;
 		p->Inflate(5);
-		Circle c(...);
+		Circle c(2,5,5,Shape::GREEN);
 		p = &c;
 		p->Inflate(5);
 	}
-*/
+
 
 
 //////////////////////////////////////////////////////////////////////
@@ -326,6 +345,19 @@ int _tmain(int argc, _TCHAR* argv[])
 	//количество указателей на строки, а возвращать объект MyString,
 	//в котором строка будет конкатенацией параметров
 
+	//Определяем необходимое количество выделяемой памяти
+	const char* ar[] = { "Hi", "C++", "C", "is", "very", "hard", "language" };
+	
+	int totalMemory = 0;
+	for (size_t i = 0; i < sizeof(ar)/sizeof(ar[0]); i++)
+	{
+		int memory = 0;
+		totalMemory += NecessaryMemory(ar[i], memory);
+	}
+	std::cout << "Необходимый объем памяти=" << totalMemory << std::endl;
+	MyString str = GetMyString(ar, totalMemory);
+	std::cout<<str.GetString()<<std::endl;
+	// Выделяем память и конкатенируем строку
 ////////////////////////////////////////////////////////////////////////
 /*
 	//Задание 10.Объединения (union) C++. Битовые поля.

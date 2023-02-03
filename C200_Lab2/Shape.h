@@ -15,11 +15,13 @@ public:
     Shape(COLOR x);
     void WhereAmI();
     virtual void WhereAmIVirtual();
+    virtual void Inflate(int x);
     virtual ~Shape();
 };
 //Возьмем фигуру, которую описывает производный класс прямоугольник.
 class Rect:public Shape
 {
+    friend class Circle;
 protected:
     unsigned int m_sideA, m_sideB, m_sideC, m_sideD;
 public:
@@ -27,22 +29,26 @@ public:
     Rect(const Rect& rect);     //Конструктор копирования
     void WhereAmI();
     void WhereAmIVirtual() override;
-    
-
+    int GetsideA();
+    int GetsideD();
+    void Inflate(int x) override;
 	
     virtual ~Rect();
 };
 //Возьмем фигуру, которую описывает производный класс круг.
 class Circle :public Shape
 {
+    friend class Rect;
 protected:
     unsigned int m_radius, m_x, m_y;
 public:
     Circle();
     Circle(unsigned int r, unsigned int x, unsigned int y, COLOR color);   //Конструктор по умолчанию
     Circle(const Circle& circle);                    //Конструктор копирования
+    Circle(const Rect& r);
     void WhereAmI();
     void WhereAmIVirtual() override;
+    void Inflate(int x) override;
     virtual ~Circle();
 
 };

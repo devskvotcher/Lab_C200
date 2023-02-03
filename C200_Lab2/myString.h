@@ -2,15 +2,14 @@
 class MyString
 {
     char* m_pStr;	//строка-член класса
-    
+ //   int m_memory;
 
 public:
-  //  MyString();
+   // MyString();
     MyString(const char* pName = "adfasd");
     MyString(const MyString& other); // конструктор копировани€
-    
- 
-
+    MyString(int memory);
+    const char* ConcatenationString(const char* pNewStr);
     const char* GetString() const; // объ€вление константного метода 
     const char* SetNewString(const char* pNewString);
     ~MyString();
