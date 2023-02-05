@@ -7,6 +7,7 @@
 #include <iostream>
 #include "myString.h"
 #include "Shape.h"
+#include "Byte.h"
 #define	  stop __asm nop
 MyString GetMyString(const char *ar[], int totalMemory)
 {
@@ -346,20 +347,26 @@ int _tmain(int argc, _TCHAR* argv[])
 	//в котором строка будет конкатенацией параметров
 
 	//Определяем необходимое количество выделяемой памяти
-	const char* ar[] = { "Hi", "C++", "C", "is", "very", "hard", "language" };
+	const char* ar[] = { "Hi", "C++", "C", "is", "very", "hard", "language","*"};
 	
-	int totalMemory = 0;
-	for (size_t i = 0; i < sizeof(ar)/sizeof(ar[0]); i++)
+	//int totalMemory = 0;
+	//for (size_t i = 0; i < sizeof(ar)/sizeof(ar[0]); i++)
+	//{
+	//	int memory = 0;
+	//	totalMemory += NecessaryMemory(ar[i], memory);
+	//}
+	//std::cout << "Необходимый объем памяти=" << totalMemory << std::endl;
+	//MyString str = GetMyString(ar, totalMemory);
+	//std::cout<<str.GetString()<<std::endl;
+	for (size_t i = 0; i < 8/*sizeof(ar) / sizeof(ar[0])*/; i++)
 	{
-		int memory = 0;
-		totalMemory += NecessaryMemory(ar[i], memory);
+	  MyString str = str.f(ar[i]);
+	  std::cout << str.GetString() << std::endl;
 	}
-	std::cout << "Необходимый объем памяти=" << totalMemory << std::endl;
-	MyString str = GetMyString(ar, totalMemory);
-	std::cout<<str.GetString()<<std::endl;
+	
 	// Выделяем память и конкатенируем строку
 ////////////////////////////////////////////////////////////////////////
-/*
+
 	//Задание 10.Объединения (union) C++. Битовые поля.
 	//1.
 	//Создайте следующие классы для различных представлений значений байта:
@@ -381,13 +388,36 @@ int _tmain(int argc, _TCHAR* argv[])
 	//			восьмеричные, двоичные цифры;
 	//в) изменять отдельные двоичные, восьмеричные или шестнадцатеричные цифры;
 
-	MyByte byte(0x1f);
+	Bytes byte(0x1f);
 	byte.ShowHex();
-	byte.ShowBin();
+	byte.ShowDec();
+	byte.ShowChar();
+	byte.ShowHexPos(1);
+	byte.EditHex(1, 0xA);
+	byte.ShowHex();
+	byte.ShowDec();
+
+	Bytes octi(0233);
+	octi.ShowOct();
+	octi.ShowDec();
+	octi.ShowChar();
+	octi.ShowOctPos(0);
+	octi.EditOct(2, 0);
+	octi.ShowOct();
+	octi.ShowDec();
+
+	Bytes bini(0b10001110);
+	bini.ShowBin();
+	bini.ShowDec();
+	bini.ShowChar();
+	bini.EditBin(5, 0);
+	bini.ShowBin();
+	bini.ShowDec();
+
 	//...
 
 
-*/
+
 	return 0;
 }//endmain
 
