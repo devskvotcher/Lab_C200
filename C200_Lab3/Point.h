@@ -20,7 +20,7 @@ public:
 	friend Point& operator - (Point& obj1, const Point& obj2);
 	//friend Point operator - (Point& obj1, int x);
 	//friend Point& operator - (int x, Point& obj1);
-	const Point& operator +(const Point& obj2) const;
+	Point operator +();
 	friend std::ostream& operator<< (std::ostream& out, const Point& point);
 };
 

@@ -9,6 +9,7 @@ public:
     MyString(const char* pName = "adfasd");
     MyString(const MyString& other); // конструктор копирования
     MyString(int memory);
+    //Перемешающий конструктор копирования
     const char* ConcatenationString(const char* pNewStr);
     const char* GetString() const; // объявление константного метода 
     const char* SetNewString(const char* pNewString);

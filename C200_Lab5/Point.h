@@ -1,0 +1,19 @@
+#pragma once
+#include <iostream>
+#include <fstream>
+class Point
+{
+	int m_x;
+	int m_y;
+public:
+	Point();  //Конструктор по умолчанию
+	Point(int x, int y);  //Конструктор с параметрами
+	//Point(const Point& other); //Конструктор копирования
+	int GetPointX(); //Геттер для х
+	int GetPointY(); //Геттер для y
+	//~Point();
+	friend std::ostream& operator<< (std::ostream& out, const Point& point);
+	friend std::ifstream& operator>> (std::ifstream& in, Point& point);
+//	friend class Circle;
+};
+

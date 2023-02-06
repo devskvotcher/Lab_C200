@@ -38,7 +38,7 @@ MyString::MyString(int memory)
 {
 
 	this->m_pStr = new char[memory];
-	
+    m_pStr[0] = 0;
 }
 
 const char* MyString::GetString() const // определение константного метода
@@ -49,7 +49,7 @@ const char* MyString::ConcatenationString(const char* pNewStr)
 {
 	if (m_pStr != nullptr)
 	{
-		strcpy(m_pStr, strcat(m_pStr, pNewStr));		
+		strcat(m_pStr, pNewStr);		
 	}
 	return m_pStr;	
 }
@@ -105,8 +105,11 @@ MyString MyString::f(const char* first, ...)
     }
 
     va_end(args);
-    //return MyString(result);
-    return result;
+    MyString str2(result);
+    delete[] result;
+    return str2;
+
+   // return result;
 }
 
 // Определение деструктора.

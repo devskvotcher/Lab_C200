@@ -41,18 +41,18 @@ WD &operator+(WD &wd1, int x)
 	int tmp = 0;
 	//wd1 =static_cast<WD>(static_cast<int>(wd1)+ x);
 	//std::cout << (static_cast<int>(wd1) > 6) ? static_cast<WD>((wd1 + x) % 6) : static_cast<WD>((wd1 + x));
-	if (static_cast<int>(wd1) + x > 6)
-	{
+//	if (static_cast<int>(wd1) + x > 6)
+//	{
 		tmp = static_cast<int>(wd1)+x;
-		tmp %= 6;
+		tmp %= 7;
 		//t = static_cast<WD>(tmp);
 		wd1 = static_cast<WD>(tmp);
-	}
-	else
-	{
-		tmp = static_cast<int>(wd1) + x;
-		wd1 = static_cast<WD>(tmp);
-	}
+//	}
+//	else
+//	{
+//		tmp = static_cast<int>(wd1) + x;
+//		wd1 = static_cast<WD>(tmp);
+//	}
 	//((wd1 + x) > 6) ? wd1 = static_cast<WD>((wd1 + x) % 6) : wd1 = static_cast<WD>((wd1 + x));
 	//(static_cast<int>(wd1) > 6) ? tmp = (static_cast<int>(wd1 + x) % 6) : tmp = static_cast<int>((wd1 + x));
 	//std::cout << tmp;

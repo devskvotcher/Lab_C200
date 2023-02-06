@@ -21,8 +21,10 @@ MyString::MyString(const char* pName)
 }
 MyString& MyString::operator=(const char* str)
 {
+    delete[] m_pStr;
     m_pStr = new char[strlen(str) + 1];
     strcpy(m_pStr, str);
+    
     return *this;
 }
 MyString::MyString(const MyString& other)			// конструктор копирования
@@ -167,6 +169,7 @@ MyString& operator+=(MyString& str1, const MyString& str2)
     strcpy(newStr, str1.GetString());
     strcat(newStr, str2.GetString());
     str1.SetNewString(newStr);
+    delete[] newStr;
     return str1;
 }
 MyString& MyString::operator--(int c)
@@ -188,6 +191,7 @@ MyString& operator++(MyString& str)
         tmp[i] = toupper(static_cast<int>(tmp[i]));
     }
     str.SetNewString(tmp);
+    delete[] tmp;
     return str;
 }
 // Определение деструктора.

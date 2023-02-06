@@ -281,6 +281,12 @@ int _tmain(int argc, _TCHAR* argv[])
 			{
 				ar[i]->WhereAmIVirtual();
 			}
+			for (size_t i = 0; i < 4; i++)
+			{
+				delete ar[i];
+			}
+
+			//sifeof(ar)/sizeof(ar[0])
 		}
 	}
 		
@@ -308,6 +314,13 @@ int _tmain(int argc, _TCHAR* argv[])
 		//////////////////////////////////////////////////////////////////////
 		std::cout << "Задание 7.Виртуальные функции и оператор разрешения области видимости. " << std::endl;
 	//Задание 7.Виртуальные функции и оператор разрешения области видимости. 
+
+	{
+		Rect r(2, 4, 2, 4, Shape::BLACK);
+		Shape* p = &r;
+		p->WhereAmIVirtual(); //Rect
+		stop
+	}
 
 	{
 		Rect r(2,4,2,4,Shape::BLACK);
@@ -349,20 +362,20 @@ int _tmain(int argc, _TCHAR* argv[])
 	//Определяем необходимое количество выделяемой памяти
 	const char* ar[] = { "Hi", "C++", "C", "is", "very", "hard", "language","*"};
 	
-	//int totalMemory = 0;
-	//for (size_t i = 0; i < sizeof(ar)/sizeof(ar[0]); i++)
-	//{
-	//	int memory = 0;
-	//	totalMemory += NecessaryMemory(ar[i], memory);
-	//}
-	//std::cout << "Необходимый объем памяти=" << totalMemory << std::endl;
-	//MyString str = GetMyString(ar, totalMemory);
-	//std::cout<<str.GetString()<<std::endl;
-	for (size_t i = 0; i < 8/*sizeof(ar) / sizeof(ar[0])*/; i++)
+	int totalMemory = 0;
+	for (size_t i = 0; i < sizeof(ar)/sizeof(ar[0]); i++)
 	{
-	  MyString str = str.f(ar[i]);
-	  std::cout << str.GetString() << std::endl;
+		int memory = 0;
+		totalMemory += NecessaryMemory(ar[i], memory);
 	}
+	std::cout << "Необходимый объем памяти=" << totalMemory << std::endl;
+	MyString str = GetMyString(ar, totalMemory);
+	std::cout<<str.GetString()<<std::endl;
+	//for (size_t i = 0; i < 8/*sizeof(ar) / sizeof(ar[0])*/; i++)
+	//{
+	  MyString str1 = str1.f(ar[0], ar[1],"abc","*");
+	  std::cout << str1.GetString() << std::endl;
+	//}
 	
 	// Выделяем память и конкатенируем строку
 ////////////////////////////////////////////////////////////////////////
