@@ -41,7 +41,6 @@ MyString::MyString(MyString&& other) noexcept    //Перемещающий конструктор копи
 }
 MyString::MyString(int memory)
 {
-
 	this->m_pStr = new char[memory];
     m_pStr[0] = 0;
 }

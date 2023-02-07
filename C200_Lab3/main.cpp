@@ -18,24 +18,6 @@ enum WD
 	FRIDAY,
 	SATURDAY
 };
-Point operator - (Point& obj1, int d)
-{
-	int x = obj1.Getm_x(obj1)-d;
-	int y = obj1.Getm_y(obj1)-d;
-	return Point(x, y);
-}
-Point operator - (int d, Point& obj1)
-{
-	int x = d-obj1.Getm_x(obj1);
-	int y = d-obj1.Getm_y(obj1);
-	return Point(x, y);
-}
-Point operator -(Point& obj2)
-{
-	int x = obj2.Getm_x(obj2);
-	int y = obj2.Getm_y(obj2);
-	return Point(-(x), -(y));
-}
 WD &operator+(WD &wd1, int x)
 {
 	int tmp = 0;
@@ -176,7 +158,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		Point pt3;
 
 		pt3 = -pt1;  // с помощью глобальной функции,
-//		pt3 = +pt1;  // с помощью метода класса Не получилось почему-то
+		pt3 = +pt1;  // с помощью метода класса 
 	}
 	//Задание 4. Перегрузите оператор << (вывода в поток) для
 	// класса Point  таким образом, чтобы при выводе отображались координаты точки
@@ -201,9 +183,9 @@ int _tmain(int argc, _TCHAR* argv[])
 		std::cout << s2 << std::endl;
 		s1="CCC";
 		std::cout << s1 << std::endl;
-		s2= MyString("tmp");
+		s2= std::move(MyString("tmp"));
 		std::cout << s2 << std::endl;
-		s1=s1;
+		s1= s1;
 		std::cout << s1 << std::endl;
 		stop
 	}
@@ -225,12 +207,16 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	//Задание 7. Перегрузите операторы + и += для класса MyString таким образом,
   	//чтобы происходила конкатенация строк
+	{
 	MyString s1("QWERTY"), s2("AAA"), s3, s4("BBB");
 	s3 = s1+s2;
+	std::cout << s3 << std::endl;    
 	s4 += s1; 
+	//Марина Геннадьевна, вот если исправить,как мы исправили на занятии,
+	//то все время ошибки по поводу переполнения кучи
 	std::cout << s4 << std::endl;
 	stop
-
+	}
 
 
 	//Задание 8. Перегрузите операторы  постфиксный декремент -- и префиксный инкремент
@@ -246,7 +232,9 @@ int _tmain(int argc, _TCHAR* argv[])
 		MyString str1("Hello World!!!");
 		std::cout << "Исходная строка" << str1 << std::endl;
 		MyString str1_2 = str1--;
-		std::cout << "Результат метода" << str1_2 << std::endl;
+		std::cout << "str1_2, должна не поменяться была" << str1_2 << std::endl;
+		std::cout << "str1 декремент" << str1 << std::endl;
+		//std::cout << "Результат метода" << str1_2 << std::endl;
 		MyString str2("Hello World!");
 		MyString str2_2 = ++str2;
 		std::cout << "Результат функции" << str2_2 << std::endl;

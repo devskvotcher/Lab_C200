@@ -8,8 +8,8 @@
 using namespace std;
 
 
-// Определение конструктора.
-MyString::MyString()   //по умолчанию 
+// Ii?aaaeaiea eiino?oeoi?a.
+MyString::MyString()   //ii oiie?aie? 
 {		
 		m_pStr = nullptr;		
 }
@@ -23,10 +23,11 @@ MyString& MyString::operator=(const char* str)
 {
     delete[] m_pStr;
     m_pStr = new char[strlen(str) + 1];
-    strcpy(m_pStr, str);    
+    strcpy(m_pStr, str);
+    
     return *this;
 }
-MyString::MyString(const MyString& other)			// конструктор копирования
+MyString::MyString(const MyString& other)			// eiino?oeoi? eiie?iaaiey
 {
 	if (other.m_pStr)
 	{
@@ -46,21 +47,8 @@ MyString::MyString(int memory)
 	this->m_pStr = new char[memory];
 	
 }
-MyString::MyString(MyString&& other)  noexcept   //Перемещающий конструктор копирования
-{
-    delete[]this->m_pStr;
-    this->m_pStr = other.m_pStr;
-    other.m_pStr = nullptr;
-}
 
-MyString& MyString::operator=(MyString&& other) noexcept
-{
-    delete[]this->m_pStr;
-    this->m_pStr = other.m_pStr;
-    other.m_pStr = nullptr;
-    return *this;
-}
-const char* MyString::GetString() const // определение константного метода
+const char* MyString::GetString() const // ii?aaaeaiea eiinoaioiiai iaoiaa
 {	
 		return m_pStr;		
 }
@@ -97,26 +85,26 @@ MyString MyString::f(const char* first, ...)
     va_start(args, first);
 
     const char* nextStr = va_arg(args, const char*);
-    while (strcmp(nextStr, "*") != 0) {    // длина следующей строки-аргумента без учета нулевого символа
-        int nextStrLength = strlen(nextStr); // размер равен = длина старой строки без учета '\0' + длина новой строки
-        // без учета '\0' + место под '\0'
+    while (strcmp(nextStr, "*") != 0) {    // aeeia neaao?uae no?iee-a?aoiaioa aac o?aoa ioeaaiai neiaiea
+        int nextStrLength = strlen(nextStr); // ?acia? ?aaai = aeeia noa?ie no?iee aac o?aoa '\0' + aeeia iiaie no?iee
+        // aac o?aoa '\0' + ianoi iia '\0'
         char* newResult = new char[length + nextStrLength + 1];
-        // сначала копирую старую строку в новый буфер
-        // символы с индексами [0 .. length - 1] - символы старого буфера
-        // на позиции [length] - '\0'
-        strcpy(newResult, result); //ПОЧЕМУ В КАЧЕСТВЕ ДЛИИНЫ ИСПОЛЬЗУЕТСЯ ПРОСТО ДЛИНА ПРЕДЫДУЩЕЙ СТРОКИ
+        // nia?aea eiie?o? noa?o? no?ieo a iiaue aooa?
+        // neiaieu n eiaaenaie [0 .. length - 1] - neiaieu noa?iai aooa?a
+        // ia iiceoee [length] - '\0'
+        strcpy(newResult, result); //II?AIO A EA?ANOAA AEEEIU ENIIEUCOAON? I?INOI AEEIA I?AAUAOUAE NO?IEE
 
-        // копирую следующую строку-аргумент в новый буфер
-        // newResult + length значит, что мы начинаем вставлять символы с позиции
-        // [length], на которой у нас сейчас записан '\0' после прошлого strcpy.
-        // Нам он не нужен, так как в строке должен быть только один '\0', и он
-        // должен быть в конце строки, поэтому перезаписываем его.
-        // На позиции нового буфера [length .. length + nextStrLength] будут
-        // записаны символы [0 .. nextStrLength] строки nextStr, включая '\0'.
+        // eiie?o? neaao?uo? no?ieo-a?aoiaio a iiaue aooa?
+        // newResult + length cia?eo, ?oi iu ia?eiaai anoaaeyou neiaieu n iiceoee
+        // [length], ia eioi?ie o ian nae?an caienai '\0' iinea i?ioeiai strcpy.
+        // Iai ii ia io?ai, oae eae a no?iea aie?ai auou oieuei iaei '\0', e ii
+        // aie?ai auou a eiioa no?iee, iiyoiio ia?acaienuaaai aai.
+        // Ia iiceoee iiaiai aooa?a [length .. length + nextStrLength] aoaoo
+        // caienaiu neiaieu [0 .. nextStrLength] no?iee nextStr, aee??ay '\0'.
         strcpy_s(newResult + length, nextStrLength + 1, nextStr);
 
-        // Так как мы выделили новую память под новый буфер, освобождаем старую
-        // и обновляем значения переменных result и length для следующего цикла.
+        // Oae eae iu auaaeeee iiao? iaiyou iia iiaue aooa?, inaiai?aaai noa?o?
+        // e iaiiaeyai cia?aiey ia?aiaiiuo result e length aey neaao?uaai oeeea.
         delete[] result;
         result = newResult;
         length += nextStrLength;
@@ -124,18 +112,17 @@ MyString MyString::f(const char* first, ...)
     }
 
     va_end(args);
-    MyString str2(result);
-    delete[] result;
-    return str2;
+    //return MyString(result);
+    return MyString(result);
 }
 
 MyString& MyString::operator=(const MyString& str2)
 {
-    // проверка на самоприсваивание
+    // i?iaa?ea ia naiii?enaaeaaiea
     if (this == &str2)
         return *this;
 
-    // если данные существуют в текущей строке, удалить их
+    // anee aaiiua nouanoao?o a oaeouae no?iea, oaaeeou eo
     if (m_pStr)
     {
         delete[] m_pStr;
@@ -143,14 +130,14 @@ MyString& MyString::operator=(const MyString& str2)
 
     int m_length = strlen(str2.m_pStr)+1;
 
-    // копируем данные из str в неявный объект
+    // eiie?oai aaiiua ec str a iayaiue iauaeo
     m_pStr = new char[strlen(str2.m_pStr) + 1];
 
     for (int i = 0; i < m_length; ++i)
         m_pStr[i] = str2.m_pStr[i];
 
-    // возвращаем существующий объект,
-    // можно было включить этот оператор в цепочку
+    // aica?auaai nouanoao?uee iauaeo,
+    // ii?ii auei aee??eou yoio iia?aoi? a oaii?eo
     return *this;
 }
 std::ostream& operator<< (std::ostream& out, const MyString& str)
@@ -168,15 +155,11 @@ std::ostream& operator<< (std::ostream& out, const MyString& str)
 //    return str1;
 //}
 MyString operator+(MyString& str1, const MyString& str2)
-//MyString operator+(MyString& str1, MyString& str2)
 {
     char* newStr = nullptr;
     newStr = new char[strlen(str1.GetString()) + strlen(str2.GetString() + 1)];
     strcpy(newStr, str1.GetString());
     strcat(newStr, str2.GetString());
-   // MyString str(newStr);  //Ошибки при освобождении памяти
-   // delete[] newStr;
-   // return str;
     return MyString(newStr);
 }
 MyString& operator+=(MyString& str1, const MyString& str2)
@@ -186,17 +169,18 @@ MyString& operator+=(MyString& str1, const MyString& str2)
     strcpy(newStr, str1.GetString());
     strcat(newStr, str2.GetString());
     str1.SetNewString(newStr);
-  //  delete newStr;
+    delete[] newStr;
     return str1;
 }
 MyString MyString::operator--(int c)
 {
-    MyString str = *this;    
+    MyString str=*this;
+
     for (size_t i = 0; i < strlen(m_pStr); i++)
     {
-        this->m_pStr[i] = tolower(static_cast<int>(m_pStr[i]));
+        m_pStr[i] = tolower(static_cast<int>(m_pStr[i]));
     }
-    return str;
+    return *this;
 }
 MyString& operator++(MyString& str)
 {
@@ -212,10 +196,8 @@ MyString& operator++(MyString& str)
     delete[] tmp;
     return str;
 }
-// Определение деструктора.
+// Ii?aaaeaiea aano?oeoi?a.
 MyString::~MyString()
 {
 	delete[] m_pStr;
 }
-
-

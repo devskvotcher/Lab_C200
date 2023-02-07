@@ -9,6 +9,8 @@ public:
     //explicit MyString(const char* pName = "adfasd");
     explicit MyString(const char* pName);
     MyString(const MyString& other); // конструктор копировани€
+    MyString(MyString&& other) noexcept; //ѕеремещающий конструктор копировани€
+    MyString& operator=(MyString&& other) noexcept;
     MyString(int memory);
     const char* ConcatenationString(const char* pNewStr);
     const char* GetString() const; // объ€вление константного метода 
@@ -20,9 +22,9 @@ public:
     //friend MyString& operator+(MyString& str1, const MyString& str2);
     //”нарный оператор +, если €вл€етс€ членом класса, то принемает лдин параметр
     //в св€зи с чем реализуетс€ глобальна€ функци€.
-    friend MyString operator+(MyString& str1, const MyString& str2);
+    friend MyString operator+(MyString& str1, const MyString& str2);    
     friend MyString& operator+=(MyString& str1, const MyString& str2);
-    MyString& operator--(int c);
+    MyString operator--(int c);
     friend MyString& operator++(MyString& str);    
     ~MyString();
 };
