@@ -32,6 +32,11 @@ std::ifstream& operator>> (std::ifstream& in, Point& point)
 	in >> point.m_x >> point.m_y;
 	return in;
 }
+bool Point::operator==(const Point& p)
+{
+	return (this->m_x == p.m_x) && (this->m_y == p.m_y);
+}
+
 //Point::~Point()
 //{
 //

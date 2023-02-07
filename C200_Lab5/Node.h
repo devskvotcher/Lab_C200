@@ -2,7 +2,7 @@
 #include "Circle.h"
 class Node
 {
-public:
+protected:
 	Node* pPrev;
 	Node* pNext;
 	Circle m_data;

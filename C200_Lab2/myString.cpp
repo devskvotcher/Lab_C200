@@ -33,14 +33,26 @@ MyString::MyString(const MyString& other)			// конструктор копирования
 	}
 	
 }
-
+MyString::MyString(MyString&& other) noexcept     //Перемещающий конструктор копирования
+{
+    delete[]this->m_pStr;
+    this->m_pStr = other.m_pStr;    
+    other.m_pStr = nullptr;
+}
 MyString::MyString(int memory)
 {
 
 	this->m_pStr = new char[memory];
     m_pStr[0] = 0;
 }
+MyString& MyString::operator=(MyString&& other)
+{
+    delete[]this->m_pStr;
+    this->m_pStr = other.m_pStr;
+    other.m_pStr = nullptr;
 
+    return *this;
+}
 const char* MyString::GetString() const // определение константного метода
 {	
 		return m_pStr;		

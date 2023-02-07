@@ -6,12 +6,17 @@
 					//файлов, раскомментируйте эту строчку
 #include <tchar.h>
 #define	  stop __asm nop
-
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include "MyString.h"
+#include "Base.h"
+#include "Pair.h"
 int _tmain(int argc, _TCHAR* argv[])
 {
 //////////////////////////////////////////////////////////////////////
+	setlocale(LC_ALL, "Rus");
 
-/*
 
 	//Задание 1. Разработать "базу данных" о сотрудниках посредством ассоциативного
 	//массива. Ключом является фамилия (ключ в задании уникален, поэтому нескольких Ивановых
@@ -23,32 +28,37 @@ int _tmain(int argc, _TCHAR* argv[])
 	//вывод всей (или интересующей) информации о всех сотрудниках
 	//(подсказки по реализации базы в файле "База_данных-ооп.pdf")
 	//Например:
-/*
-		BD bd1;	//создание пустой базы
 
+		Base bd1;	//создание пустой базы
+		std::cout << bd1 << std::endl;
 		//добавляем сотрудников в базу
-		bd1["Ivanov"] = Data(30,MALE,<остальные данные>);
-		bd1["Petrova"] = Data(35,FMALE,<остальные данные>);
-		bd1["Sidorov"] = Data(50,MALE,<остальные данные>);
+		bd1["Ivanov"] = MyData(MyData::MALE, 35, "Engineer", 125);
+		bd1["Petrova"] = MyData(MyData::FEMALE, 30, "Lifter", 44);
+		bd1["Sidorov"] = MyData(MyData::MALE, 50, "Driver", 70);
 		//. . .
 		std::cout << bd1; //выводим информацию обо всех сотрудниках
+		std::cout << std::endl << std::endl << "Информация о сотруднике с фамилией \'Ivanov\' имеет вид:" << std::endl;
+		std::cout << bd1["Ivanov"];
+		//std::cout << bd1["Ivanov"]; //выводим информацию о сотруднике
 
-		std::cout << bd1["Ivanov"]; //выводим информацию о сотруднике
-
-		bd1.deletePair("Petrova"); //исключаем сотрудника
+	//	bd1.deletePair("Petrova"); //исключаем сотрудника
+		bd1.Delete_pair("Petrova"); //исключаем сотрудника
 		std::cout << bd1; //выводим информацию обо всех сотрудниках  из базы bd1
+
+
 
 	//Задание 2. Разработайте необходимые методы для того, чтобы код,
 	// приведенный ниже выполнялся корректно
-
+		
 	//Задание 2.1. создайте 2 копии  базы  bd1
-	BD bd2 = bd1; 
+	Base bd2 = bd1; 
 	std::cout << bd2; //выводим информацию обо всех сотрудниках  из базы bd2
-	BD bd3 = bd1;
+	Base bd3 = bd1;
 	std::cout << bd3; //выводим информацию обо всех сотрудниках  из базы bd3
 
 	//Задание 2.2.  
 	//добавьте сотрудников в базу  bd2
+
 	std::cout << bd2; //выводим информацию обо всех сотрудниках  из базы bd2
 	bd1=bd2;   //  из "большой" в "маленькую"
 	std::cout << bd2; //выводим информацию обо всех сотрудниках  из базы bd1
@@ -59,14 +69,14 @@ int _tmain(int argc, _TCHAR* argv[])
 	
 
 	//Задание 3. вспоминаем про семантику перемещения
-	Задание 3.1. создайте копию  базы  bd1
-	Base bd4 = move(bd2); 
+	//Задание 3.1. создайте копию  базы  bd1
+	Base bd4 = std::move(bd2); 
 	std::cout << bd4; //выводим информацию обо всех сотрудниках  из базы bd4
 	std::cout << bd2; //выводим информацию обо всех сотрудниках  из базы bd2
 
-	Задание 3.2. 
+	//Задание 3.2. 
 
-	bd3 = move(bd4);
+	bd3 = std::move(bd4);
 	std::cout << bd3; //выводим информацию обо всех сотрудниках  из базы bd3
 	std::cout << bd4; //выводим информацию обо всех сотрудниках  из базы bd4
 
@@ -76,12 +86,16 @@ int _tmain(int argc, _TCHAR* argv[])
 	//подумайте, что надо перегрузить в классе MyString
 	
 	//Задание 4.2.Отсортируйте любую базу данных и выведите результат
+	bd3["Nikonova"] = MyData(MyData::FEMALE, 46, "Fermer", 144);
+	bd3["Azimov"] = MyData(MyData::MALE, 16, "KPI", 21);
+
+	std::cout << bd3;
+	bd3.Sort();
+	std::cout << bd3;
 
 
-		std::cout << bd << endl;
-	bd.sort();
-	cout << bd << endl;
-*/
+	std::cout << std::endl << std::endl;
+	system("pause");	
 	
 	return 0;
 }//endmain

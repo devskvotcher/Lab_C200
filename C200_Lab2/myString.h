@@ -8,7 +8,9 @@ public:
    // MyString();
     MyString(const char* pName = "adfasd");
     MyString(const MyString& other); // конструктор копировани€
+    MyString(MyString&& other); //ѕеремещающий конструктор копировани€
     MyString(int memory);
+    MyString& operator=(MyString&& other);
     //ѕеремешающий конструктор копировани€
     const char* ConcatenationString(const char* pNewStr);
     const char* GetString() const; // объ€вление константного метода 

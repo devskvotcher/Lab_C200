@@ -12,6 +12,7 @@ public:
 	int GetPointX(); //Геттер для х
 	int GetPointY(); //Геттер для y
 	//~Point();
+	bool operator==(const Point& p);
 	friend std::ostream& operator<< (std::ostream& out, const Point& point);
 	friend std::ifstream& operator>> (std::ifstream& in, Point& point);
 //	friend class Circle;

@@ -15,6 +15,7 @@ public:
     Shape(COLOR x);
     void WhereAmI();
     virtual void WhereAmIVirtual();
+    //virtual void Inflate(int x)=0;
     virtual void Inflate(int x);
     virtual ~Shape();
 };

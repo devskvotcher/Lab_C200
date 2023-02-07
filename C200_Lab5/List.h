@@ -2,7 +2,7 @@
 #include "Node.h"
 class List
 {
-public:
+protected:
 	Node Head;
 	Node Tail;
 	size_t m_size;
@@ -15,7 +15,7 @@ public:
 	bool RemoveOne(const Circle& pc);
 	~List();
 	//std::ostream& operator<< (std::ostream& out);
-	friend std::ofstream& operator>> (std::ofstream& out, List& list);
+	friend std::ofstream& operator<< (std::ofstream& out, const List& list);
 	friend std::ifstream& operator>> (std::ifstream& in, List& list);
 	friend class Node;
 };

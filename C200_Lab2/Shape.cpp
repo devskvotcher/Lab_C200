@@ -16,10 +16,10 @@ void Shape::WhereAmIVirtual()
     std::cout << "Now I am in class Shape" << std::endl;
 }
 
-void Shape::Inflate(int x)
-{
-    std::cout << "Вертульный метод Inflate базового класса ничего не делает, прям как я" << std::endl;
-}
+//void Shape::Inflate(int x)
+//{
+//    std::cout << "Вертульный метод Inflate базового класса ничего не делает, прям как я" << std::endl;
+//}
 
 Shape::~Shape()
 {

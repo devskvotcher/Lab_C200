@@ -14,6 +14,7 @@ class Circle
 	//	~Circle();
 		friend std::ostream& operator<< (std::ostream& out, const Circle& circle);
 		friend std::ifstream& operator>> (std::ifstream& in, Circle& circle);
+		bool operator==(const Circle& c);
 		friend class Node;
 };
 

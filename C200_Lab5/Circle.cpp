@@ -34,6 +34,7 @@ int Circle::GetY() //Геттер для y
 
 std::ostream& operator<< (std::ostream& out, const Circle& circle)
 {
+
 	out << circle.point<<" " << circle.m_r;
 	return out;
 }
@@ -41,6 +42,10 @@ std::ifstream& operator>> (std::ifstream& in, Circle& circle)
 {
 	in >> circle.point >> circle.m_r;
 	return in;
+}
+bool Circle::operator==(const Circle& c)
+{
+	return (this->point == c.point) && (this->m_r == c.m_r);
 }
 //Circle::~Circle()
 //{

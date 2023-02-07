@@ -19,9 +19,9 @@ List::List(const List&& other) :m_size(other.m_size)   //конструктор копировани€
 	Node* pOther = other.Head.pNext;
 	for (size_t i = 0; i < m_size; i++)
 	{
-		//pThis = new Node(pThis, pOther->m_data);
-		pOther = pOther->pNext;
-	}
+	//	pThis = new Node(pThis, pOther->m_data);  //ќчень странно, ведь конструктор в классе Node реализован верно
+		pOther = pOther->pNext;					  //ƒолжен принимать указатель на предыдущий элемент и данные
+	}											//„его ругаетс€ не пойму
 }
 List::List(List&& other) :m_size(other.m_size)    //Move конструктор копировани€
 {
@@ -58,13 +58,13 @@ bool List::RemoveOne(const Circle& pc)
 	Node* p = Head.pNext;
 	while (p != &Tail)
 	{
-		//if (p->m_data == pc)   //Ќужно перегрузить оператор на равенство в классе Circle
-		//{
-		//	m_size--;
-		//	delete p;
-		//	return true;
-		//}
-		//p = p->pNext;
+		if (p->m_data == pc)   //Ќужно перегрузить оператор на равенство в классе Circle
+		{
+			m_size--;
+			delete p;
+			return true;
+		}
+		p = p->pNext;
 
 	}
 	return false;
@@ -83,23 +83,23 @@ bool List::RemoveOne(const Circle& pc)
 //}
 //ќно все равно не работает, однако хоть ошибок не возникает, если сделать пол€ всех классов public))
 //Ќо вр€д ли это хорошо
-//std::ostream& operator<< (std::ostream& out, const List &list)
-//{
-//	Node* p = list.Head.pNext;
-//
-//	while (p != &list.Tail)
-//	{
-//		//out << p->m_data.Circle::GetX() << " " << p->m_data.Circle::GetY() << p->m_data.Circle::GetR();
-//		out << p->m_data;
-//		p = p->pNext;
-//	}
-//
-//	return out;
-//}
-std::ifstream& operator>> (std::ifstream& in, List& list)
+std::ostream& operator<< (std::ostream& out, const List &list)
 {
-	in >> list;
-	return in;
+	Node* p = list.Head.pNext;
+
+	while (p != &list.Tail)
+	{
+		//out << p->m_data.Circle::GetX() << " " << p->m_data.Circle::GetY() << p->m_data.Circle::GetR();
+		out << p->m_data;
+		p = p->pNext;
+	}
+
+	return out;
 }
+//std::ifstream& operator>> (std::ifstream& in, List& list)
+//
+//	in >> list;
+//	return in;
+//
 //–азобратьс€ как передать и получить дата и тогда доделать методы
 //поиска
