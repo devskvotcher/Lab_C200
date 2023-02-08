@@ -22,7 +22,8 @@ Counter* Counter::init(char* str)
     else
     {
         Counter* temp = Head;
-        while (1) {
+        while (1) 
+        {
             if (!(strcmp(temp->m_pStr, str)))
             {
                 temp->m_nOwners++;

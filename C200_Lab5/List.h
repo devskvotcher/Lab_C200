@@ -23,6 +23,7 @@ public:
 	friend std::istream& operator>> (std::istream& in, List& list);
 	friend void WriteFile(const List& list);
 	friend List& ReadFromFile(List& list);
+	friend void Clean(List& list);
 	friend class Node;
 };
 

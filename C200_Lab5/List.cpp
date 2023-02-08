@@ -130,7 +130,10 @@ void List::sort()
 std::ostream& operator<< (std::ostream& out, const List &list)
 {
 	Node* p = list.Head.pNext;
-
+	if (p == &list.Tail)
+	{
+		out << "Список пуст" << std::endl;
+	}
 	while (p != &list.Tail)
 	{
 		//out << p->m_data.Circle::GetX() << " " << p->m_data.Circle::GetY() << p->m_data.Circle::GetR();
@@ -167,11 +170,17 @@ void WriteFile(const List& list)
 std::istream& operator>> (std::istream& in, List& list)
 {
 	int x, y, r;
-	in >> x >> y >> r;
+	std::cout << "Введите координату х точки=";
+	in >> x;
+	std::cout << "\nВведите координату y точки=";
+	in >> y;
+	std::cout << "\nВведите радиус круга=";
+	in >> r;
 	Point tmp1(x, y);
 	//Circle* tmp = new Circle(tmp1, r);
 	//list.push_back(*tmp);
 	list.push_back(Circle(Point(x,y),r));
+	std::cout << "\nОбъект успешно добавлен в список\n";
 	return in;
 }
 
@@ -203,7 +212,14 @@ List& ReadFromFile(List& list)
 		return list;
 	}
 }
-
+void Clean(List& list)
+{
+	while (list.Head.pNext != &list.Tail)
+	{
+		delete list.Head.pNext;
+	}
+	std::cout << "Список очищен от значений" << std::endl;
+}
 
 //Разобраться как передать и получить дата и тогда доделать методы
 //поиска
