@@ -24,10 +24,12 @@ int Point::GetPointY() //Геттер для y
 }
 std::ostream& operator<< (std::ostream& out, const Point& point)
 {
-	out << point.m_x<<" " << point.m_y;
+	out << point.m_x << " " << point.m_y;
 	return out;
+	//out << point.m_x<<" " << point.m_y;
+	//return out;
 }
-std::ifstream& operator>> (std::ifstream& in, Point& point)
+std::istream& operator>> (std::ifstream& in, Point& point)
 {
 	in >> point.m_x >> point.m_y;
 	return in;

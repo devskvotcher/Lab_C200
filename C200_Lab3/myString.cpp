@@ -186,7 +186,7 @@ MyString& operator+=(MyString& str1, const MyString& str2)
     strcpy(newStr, str1.GetString());
     strcat(newStr, str2.GetString());
     str1.SetNewString(newStr);
-  //  delete newStr;
+  //  delete[] newStr;
     return str1;
 }
 MyString MyString::operator--(int c)

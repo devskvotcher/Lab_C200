@@ -20,7 +20,7 @@ public:
     MyString& operator=(const char* str);
     friend std::ostream& operator<< (std::ostream& out, const MyString& point);
     //friend MyString& operator+(MyString& str1, const MyString& str2);
-    //Унарный оператор +, если является членом класса, то принемает лдин параметр
+    //Унарный оператор +, если является членом класса, то принимает один параметр
     //в связи с чем реализуется глобальная функция.
     friend MyString operator+(MyString& str1, const MyString& str2);    
     friend MyString& operator+=(MyString& str1, const MyString& str2);

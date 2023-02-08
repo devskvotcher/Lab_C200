@@ -14,7 +14,7 @@ public:
 	//~Point();
 	bool operator==(const Point& p);
 	friend std::ostream& operator<< (std::ostream& out, const Point& point);
-	friend std::ifstream& operator>> (std::ifstream& in, Point& point);
+	friend std::istream& operator>> (std::ifstream& in, Point& point);
 //	friend class Circle;
 };
 

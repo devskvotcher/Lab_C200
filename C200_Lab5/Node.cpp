@@ -1,4 +1,5 @@
 #include "Node.h"
+#include "List.h"
 Node::Node()
 {
 	this->pPrev = this->pNext = nullptr;
@@ -10,9 +11,9 @@ Node::Node(Node *prev, const Circle* pc):m_data(*pc)
 	pPrev->pNext = this;
 	pNext->pPrev = this;	
 }
-Point Node::GetDataPoint(Circle& data)
+Circle Node::Getm_data(Circle& data)
 {
-	return data.point;
+	return this->m_data;
 	//return Circle::pc.GetX();
 }
 Node::~Node()
@@ -26,3 +27,18 @@ Node::~Node()
 		pPrev->pNext = pNext;
 	}
 }
+
+//Node& Node::GetpPrev(const List& list)
+//{
+//	
+//	return *list.Head.pNext;
+//}
+//Node& Node::GetpNext(const List& list)
+//{
+//	return *list.Head.pNext;
+//}
+//
+//Node& Node::GetNextElement(Node *prev)
+//{
+//	return *prev->pNext;
+//}
