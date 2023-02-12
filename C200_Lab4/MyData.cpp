@@ -10,26 +10,26 @@ MyData::MyData()
     this->m_salary = 0;
 }
 
-MyData::MyData(Sex s, size_t age, const char* job, float salary)
+MyData::MyData(Sex s, size_t age, const char* job, float salary):m_job(job)
 {
     this->sex = s;
     this->m_age = age;
-    this->m_job.SetString(job);
+    //this->m_job.SetString(job);
     this->m_salary = salary;
 }
 
-MyData& MyData::operator=(const MyData& md)
-{
-    if (this->sex == UNDEF)
-    {
-        this->sex = md.sex;
-        this->m_age = md.m_age;
-        this->m_job = md.m_job;
-        this->m_salary = md.m_salary;
-    }
-
-    return *this;
-}
+//MyData& MyData::operator=(const MyData& md)
+//{
+//    if (this->sex == UNDEF)
+//    {
+//        this->sex = md.sex;
+//        this->m_age = md.m_age;
+//        this->m_job = md.m_job;
+//        this->m_salary = md.m_salary;
+//    }
+//
+//    return *this;
+//}
 
 std::ostream& operator<<(std::ostream& os, const MyData& d)
 {

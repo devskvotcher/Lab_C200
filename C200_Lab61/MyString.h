@@ -9,7 +9,8 @@ private:
 public:
     ~MyString();
     MyString(const char* str);
-    MyString(const MyString& str);
-    MyString operator=(const MyString& other);    
-    bool operator==(const char* other);
+    void print();
+    void del();
+    bool operator==(char* other);
+   // friend std::ostream& operator << (std::ostream& os, Counter& count);
 };

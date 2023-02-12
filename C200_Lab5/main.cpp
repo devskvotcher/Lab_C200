@@ -23,9 +23,9 @@ int main()
 	std::cout << ls << std::endl;
 	std::cout << "Чтение из файла" << std::endl;
 	List ls1;
-	ReadFromFile(ls1);
+	ls1.ReadFromFile();
 	std::cout << ls1 << std::endl;
-	Clean(ls1);
+	ls1.Clean();
 	std::cout << ls1 << std::endl;
 
 	std::cout << ls << std::endl;
@@ -41,22 +41,25 @@ int main()
 	std::cout << ls << std::endl;
 	ls.RemoveOne((Circle(Point(4, 4), 30)));
 	std::cout << ls << std::endl;
-	
-	List ls1;
-	ls1.push_back(circle);
-	ls1.push_back(Circle(Point(4, 4), 10));
-	ls1.push_back(Circle(Point(4, 4), 20));
-	ls1.push_back(Circle(Point(4, 4), 40));
-	ls1.push_back(Circle(Point(4, 4), 30));
-	ls1.push_back(Circle(Point(4, 4), 30));
-	ls1.push_back(Circle(Point(4, 4), 30));
-	ls1.push_back(Circle(Point(4, 4), 30));
-	ls1.push_back(Circle(Point(4, 4), 5));
-	std::cout << ls1 << std::endl;
-	ls1.sort();
-	std::cout << ls1 << std::endl;
-	ls1.RemoveAll((Circle(Point(4, 4), 30)));
-	std::cout << ls1 << std::endl;
-	WriteFile(ls1);
+	List ls2;
+
+//	ls2 = std::move(ls1);
+	std::cout << ls2 << std::endl;
+	List ls3;
+	ls3.push_back(circle);
+	ls3.push_back(Circle(Point(4, 4), 10));
+	ls3.push_back(Circle(Point(4, 4), 20));
+	ls3.push_back(Circle(Point(4, 4), 40));
+	ls3.push_back(Circle(Point(4, 4), 30));
+	ls3.push_back(Circle(Point(4, 4), 30));
+	ls3.push_back(Circle(Point(4, 4), 30));
+	ls3.push_back(Circle(Point(4, 4), 30));
+	ls3.push_back(Circle(Point(4, 4), 5));
+	std::cout << ls3 << std::endl;
+	ls3.sort();
+	std::cout << ls3 << std::endl;
+	ls3.RemoveAll((Circle(Point(4, 4), 30)));
+	std::cout << ls3 << std::endl;
+	ls3.WriteFile();
 	return 0;
 }

@@ -10,15 +10,10 @@ class Counter {
     char* m_pStr;
     Counter* pNext;       
 public:    
-    Counter(const char* str);   
-    static Counter* init(const char* str);
-    char* getStr() const;
-    int getOwners() const;
-    void RomoveOwner();
-    void AddOwner();
-    static void ConsoleOutCounter();
+    Counter(char* str);   
+    static Counter* init(char* str);
+    char* getStr();
+    int getOwners();
     void del();
-    static void toLow();
-    ~Counter();
-    friend class MyString;   
+   // friend std::ostream& operator << (std::ostream& os, Counter& count);
 };

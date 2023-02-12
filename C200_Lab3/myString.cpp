@@ -167,26 +167,26 @@ std::ostream& operator<< (std::ostream& out, const MyString& str)
 //    str1.SetNewString(newStr);
 //    return str1;
 //}
-MyString operator+(MyString& str1, const MyString& str2)
+MyString operator+(const MyString& str1, const MyString& str2)
 //MyString operator+(MyString& str1, MyString& str2)
 {
     char* newStr = nullptr;
-    newStr = new char[strlen(str1.GetString()) + strlen(str2.GetString() + 1)];
+    newStr = new char[strlen(str1.GetString()) + strlen(str2.GetString()) +1 ];
     strcpy(newStr, str1.GetString());
     strcat(newStr, str2.GetString());
-   // MyString str(newStr);  //Ошибки при освобождении памяти
-   // delete[] newStr;
-   // return str;
-    return MyString(newStr);
+    MyString str(newStr);  //Ошибки при освобождении памяти
+    delete[] newStr;
+   return str;
+   // return MyString(newStr);
 }
 MyString& operator+=(MyString& str1, const MyString& str2)
 {
     char* newStr = nullptr;
-    newStr = new char[strlen(str1.GetString()) + strlen(str2.GetString() + 1)];
+    newStr = new char[strlen(str1.GetString()) + strlen(str2.GetString()) + 1];
     strcpy(newStr, str1.GetString());
     strcat(newStr, str2.GetString());
     str1.SetNewString(newStr);
-  //  delete[] newStr;
+    delete[] newStr;
     return str1;
 }
 MyString MyString::operator--(int c)

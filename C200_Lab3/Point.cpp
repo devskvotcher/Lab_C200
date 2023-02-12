@@ -10,11 +10,11 @@ Point::Point(int x, int y)
 	this->m_x = x;
 	this->m_y = y;
 }
-int Point::Getm_x(Point& obj)
+int Point::Getm_x(Point& obj) const
 {
 	return obj.m_x;
 }
-int Point::Getm_y(Point& obj)
+int Point::Getm_y(Point& obj) const
 {
 	return obj.m_y;
 }
@@ -22,13 +22,13 @@ Point Point::operator +()
 {	
 	return *this;
 }
-Point Point::operator += (const Point &obj2)
+Point& Point::operator += (const Point &obj2)
 {
 	this->m_x = this->m_x + obj2.m_x;
 	this->m_y = this->m_y + obj2.m_y;
 	return *this;
 }
-Point Point::operator += (int x)
+Point& Point::operator += (int x)
 {
 	this->m_x = this->m_x + x;
 	this->m_y = this->m_y + x;
@@ -58,17 +58,14 @@ Point operator + (const int x, const Point& obj1)
 {
 	return Point(obj1.m_x + x, obj1.m_y + x);
 }
-Point& operator - (Point& obj1, const Point& obj2)
+Point operator - (const Point& obj1, const Point& obj2)
 {
-	obj1.m_x = obj1.m_x - obj2.m_x;
-	obj1.m_y = obj1.m_y - obj2.m_y;
-	return obj1;
+	
+	return Point(obj1.m_x - obj2.m_x, obj1.m_y - obj2.m_y);
 }
-Point operator - (Point& obj1, int d)
+Point operator - (const Point& obj1, int d)
 {
-	int x = obj1.Getm_x(obj1) - d;
-	int y = obj1.Getm_y(obj1) - d;
-	return Point(x, y);
+	return Point(obj1.m_x - d, obj1.m_y - d);
 }
 //Point operator - (int d, Point& obj1)
 //{
@@ -78,18 +75,14 @@ Point operator - (Point& obj1, int d)
 //}
 //+ Методом класса
 //- Глобальная функция
-Point operator -(Point& obj2)
+Point operator -(const Point& obj2)
 {
-	int x = obj2.Getm_x(obj2);
-	int y = obj2.Getm_y(obj2);
-	return Point(-(x), -(y));
+	return Point(-(obj2.m_x), -(obj2.m_y));
 }
 
-Point& operator - (int x, Point& obj1)
+Point operator - (int x, const Point& obj1)
 {
-	obj1.m_x = -obj1.m_x + x;
-	obj1.m_y = -obj1.m_y + x;
-	return obj1;
+	return Point(-obj1.m_x + x, -obj1.m_y + x);
 }
 std::ostream& operator<< (std::ostream& out, const Point& point)
 {

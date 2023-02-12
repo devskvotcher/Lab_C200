@@ -10,9 +10,15 @@ Base::Base()
 Base::Base(const Base& bd)
 {
     this->count = bd.count;
-    this->capacity = bd.capacity;
-    this->pbase = new Pair[this->capacity];
-
+    this->capacity = bd.count + 1;
+   // if (bd.count != 0)
+    {
+        this->pbase = new Pair[this->capacity];
+    }
+  //  else
+  //      this->pbase = nullptr;
+  //  }
+        
     for (size_t i = 0; i < bd.count; i++)
     {
         this->pbase[i] = bd.pbase[i];
@@ -21,21 +27,25 @@ Base::Base(const Base& bd)
 
 Base::Base(Base&& bd) noexcept
 {
-    delete[]this->pbase;
+   // delete[]this->pbase;
     this->count = bd.count;
     this->capacity = bd.capacity;
     this->pbase = bd.pbase;
-    bd.pbase = NULL;
+    bd.pbase = nullptr;
     bd.count = bd.capacity = 0;
 }
 
 Base& Base::operator=(const Base& bd)
 {
-    delete[]this->pbase;
+    
+    if (this->capacity < bd.count)
+    {
+        delete[]this->pbase;
+        this->capacity = bd.count+1;
+        this->pbase = new Pair[this->capacity];
+    }
     this->count = bd.count;
-    this->capacity = bd.capacity;
-    this->pbase = new Pair[this->capacity];
-
+    
     for (size_t i = 0; i < bd.count; i++)
     {
         this->pbase[i] = bd.pbase[i];
@@ -50,7 +60,7 @@ Base& Base::operator=(Base&& bd)
     this->count = bd.count;
     this->capacity = bd.capacity;
     this->pbase = bd.pbase;
-    bd.pbase = NULL;
+    bd.pbase = nullptr;
     bd.count = bd.capacity = 0;
 
     return *this;
@@ -71,11 +81,11 @@ MyData& Base::operator[](const char* key)
     if (this->count == this->capacity)
     {
         // емкость БД увеличивается в 2 раза ( фактор увеличения = 2 )
-        this->capacity *= 2;
+        this->capacity += 2;
         Pair* tmp = new Pair[this->capacity];
         for (size_t i = 0; i < this->count; i++)
         {
-            tmp[i] = this->pbase[i];
+            tmp[i] = std::move(this->pbase[i]);
         }
         delete[]this->pbase;
         this->pbase = tmp;
@@ -93,21 +103,23 @@ int Base::Delete_pair(const char* key)
     {
         if (this->pbase[i] == key)
         {
-            Pair* tmp_base = new Pair[this->count - 1];
-            size_t insert_position = 0;
-            for (size_t k = 0; k < this->count; k++)
-            {
-                if (k != i)
-                {
-                    tmp_base[insert_position++] = this->pbase[k];
-                }
-            }
-
-            delete[]this->pbase;
-            this->pbase = tmp_base;
-            this->count--;
+            
+           //Pair* tmp_base = new Pair[this->count - 1];
+           //size_t insert_position = 0;
+           for (size_t k = i; k < this->count-1; k++)
+           {
+               pbase[k] = std::move(pbase[k + 1]);
+               //if (k != i)
+               //{
+               //    tmp_base[insert_position++] = this->pbase[k];
+               //}
+           }
+           //
+           //delete[]this->pbase;
+           //this->pbase = tmp_base;
+           //this->count--;
             deleted = 1;
-
+            this->count--;
             break;
         }
     }
@@ -123,9 +135,9 @@ void Base::Sort()
         {
             if (this->pbase[j].key > this->pbase[j + 1].key)
             {
-                Pair swap = this->pbase[j];
-                this->pbase[j] = this->pbase[j + 1];
-                this->pbase[j + 1] = swap;
+                Pair swap = std::move(this->pbase[j]);
+                this->pbase[j] = std::move(this->pbase[j + 1]);
+                this->pbase[j + 1] = std::move(swap);
             }
         }
     }

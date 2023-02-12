@@ -42,7 +42,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		//std::cout << bd1["Ivanov"]; //выводим информацию о сотруднике
 
 	//	bd1.deletePair("Petrova"); //исключаем сотрудника
-		bd1.Delete_pair("Petrova"); //исключаем сотрудника
+		bd1.Delete_pair("Ivanov"); //исключаем сотрудника
 		std::cout << bd1; //выводим информацию обо всех сотрудниках  из базы bd1
 
 

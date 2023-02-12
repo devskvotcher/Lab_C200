@@ -3,20 +3,36 @@
 #include <iostream>
 using namespace std;
 
-MyString::MyString(const char* str) {
-    char* str1 = new char[strlen(str)+1];
-    strcpy(str1, str);
- //   delete str;
-    m_pMyCounter = Counter::init(str1);
+MyString::MyString(const char* str)
+{ 
+    if (str)
+    {
+       // m_pMyCounter = new Counter(str);
+        m_pMyCounter = Counter::init(str);
+    }
+    else
+    {
+        m_pMyCounter = nullptr;
+    }
 }
-
-void MyString::print() {
-    printf("%s\n", m_pMyCounter->get());
-}
-
-bool MyString::operator==(char* other)
+MyString::MyString(const MyString &str)
 {
-    if (strcmp(other, m_pMyCounter->get()))
+    m_pMyCounter = str.m_pMyCounter;
+    m_pMyCounter->AddOwner();
+}
+MyString MyString::operator=(const MyString& other)
+{
+    if (m_pMyCounter != other.m_pMyCounter)
+    {
+        m_pMyCounter->RomoveOwner();
+        m_pMyCounter = other.m_pMyCounter;
+        m_pMyCounter->AddOwner();
+    }
+    return *this;
+}
+bool MyString::operator==(const char* other)
+{
+    if (strcmp(other, m_pMyCounter->getStr()))
     {
         return true;
     }
@@ -28,10 +44,9 @@ bool MyString::operator==(char* other)
 
 MyString::~MyString()
 {
-    del();
+    if (m_pMyCounter)
+    {
+        m_pMyCounter->RomoveOwner();
+    }    
 }
 
-void MyString::del()
-{
-    m_pMyCounter->del();
-}

@@ -35,7 +35,7 @@ MyString::MyString(const MyString& other)			// конструктор копирования
 }
 MyString::MyString(MyString&& other) noexcept    //Перемещающий конструктор копирования
 {
-    delete[]this->m_pStr;
+   // delete[]this->m_pStr;
     this->m_pStr = other.m_pStr;    
     other.m_pStr = nullptr;
 }

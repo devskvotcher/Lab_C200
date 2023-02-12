@@ -19,6 +19,6 @@ private:
 public:
     MyData();
     MyData(Sex, size_t, const char*, float);
-    MyData& operator=(const MyData&);
+   // MyData& operator=(const MyData&);
     friend std::ostream& operator<<(std::ostream&, const MyData&);
 };
